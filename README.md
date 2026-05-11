@@ -74,6 +74,9 @@ node server.js
 
 Open **http://localhost:3000** in your browser. That's it.
 
+<img width="709" height="683" alt="image" src="https://github.com/user-attachments/assets/835d4833-ec24-4227-b189-3d88e95ebc80" />
+
+
 ## Configuration
 
 Edit the top of `server.js` to change:
