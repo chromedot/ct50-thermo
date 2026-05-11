@@ -24,6 +24,43 @@ A sleek, full-featured web dashboard for the **RadioThermostat CT50** WiFi therm
 - A **RadioThermostat CT50** on your local network
 - The thermostat's IP address (default in code: `192.168.6.174`)
 
+### Installing Node.js
+
+**Windows (PowerShell)**
+```powershell
+# Option 1: Download installer from https://nodejs.org (recommended)
+# Option 2: Using winget
+winget install OpenJS.NodeJS.LTS
+
+# Option 3: Using Chocolatey
+choco install nodejs-lts
+```
+
+**macOS (Terminal)**
+```bash
+# Option 1: Download installer from https://nodejs.org
+# Option 2: Using Homebrew
+brew install node
+```
+
+**Linux (Bash)**
+```bash
+# Ubuntu/Debian
+sudo apt update && sudo apt install nodejs
+
+# Fedora
+sudo dnf install nodejs
+
+# Or use Node Version Manager (any distro)
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
+nvm install --lts
+```
+
+Verify installation on any platform:
+```bash
+node --version
+```
+
 ## Quick Start
 
 ```bash
