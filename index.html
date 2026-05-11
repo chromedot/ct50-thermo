@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thermostat Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app">
+  <div class="app-header">
+    <h1>Thermostat</h1>
+    <div class="model" id="headerModel">CT50</div>
+  </div>
+
+  <div class="tabs">
+    <button class="tab active" data-panel="panelHome">Home</button>
+    <button class="tab" data-panel="panelSchedule">Schedule</button>
+    <button class="tab" data-panel="panelRuntime">Runtime</button>
+    <button class="tab" data-panel="panelSystem">System</button>
+  </div>
+
+  <!-- ========== HOME ========== -->
+  <div class="panel active" id="panelHome">
+    <div id="holdBanner" class="hold-banner">
+      ⏸ Hold is active — schedule overridden
+      <button class="btn" id="releaseHold">Release</button>
+    </div>
+
+    <div class="card temp-hero">
+      <div class="temp-ring">
+        <svg viewBox="0 0 200 200">
+          <defs><linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#00d2ff"/><stop offset="100%" stop-color="#7b2ff7"/>
+          </linearGradient></defs>
+          <circle class="bg" cx="100" cy="100" r="90"/>
+          <circle class="fg" id="ring" cx="100" cy="100" r="90"/>
+        </svg>
+        <div class="temp-center loading">
+          <span class="num" id="currentTemp">--</span><span class="unit">°F</span>
+        </div>
+      </div>
+      <div class="sp-row">
+        <button class="sp-btn" id="spDown">&#9660;</button>
+        <span id="setpoint" style="font-size:24px;font-weight:600;min-width:50px;text-align:center">--</span>
+        <button class="sp-btn" id="spUp">&#9650;</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Mode</div>
+      <div class="btn-row">
+        <button class="mode-btn" data-mode="0">Off</button>
+        <button class="mode-btn" data-mode="1">Heat</button>
+        <button class="mode-btn" data-mode="2">Cool</button>
+        <button class="mode-btn" data-mode="3">Auto</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Fan</div>
+      <div class="btn-row">
+        <button class="mode-btn" data-fan="0">Auto</button>
+        <button class="mode-btn" data-fan="1">On</button>
+        <button class="mode-btn" data-fan="2">Circulate</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Status</div>
+      <div class="info-grid">
+        <div class="info-box"><div class="lbl">System</div><div class="val" id="stateVal">--</div></div>
+        <div class="info-box"><div class="lbl">Fan</div><div class="val" id="fanStateVal">--</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== SCHEDULE ========== -->
+  <div class="panel" id="panelSchedule">
+    <div class="card">
+      <div class="card-title">Weekly Program</div>
+      <div class="sched-type-toggle">
+        <button class="mode-btn sched-type-btn active" data-stype="cool">Cool Schedule</button>
+        <button class="mode-btn sched-type-btn" data-stype="heat">Heat Schedule</button>
+      </div>
+      <div class="sched-grid" id="schedGrid"></div>
+      <div class="sched-actions">
+        <button class="btn" id="schedCopyAll">Copy Mon → All</button>
+        <button class="btn btn-primary" id="schedSave">Save Schedule</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== RUNTIME ========== -->
+  <div class="panel" id="panelRuntime">
+    <div class="card">
+      <div class="card-title">Today</div>
+      <div class="runtime-grid">
+        <div class="runtime-card">
+          <div class="r-label">Cooling</div>
+          <div class="runtime-bar"><div class="fill cool" id="todayCoolBar" style="width:0"></div></div>
+          <div class="runtime-val c-cool" id="todayCoolVal">--</div>
+        </div>
+        <div class="runtime-card">
+          <div class="r-label">Heating</div>
+          <div class="runtime-bar"><div class="fill heat" id="todayHeatBar" style="width:0"></div></div>
+          <div class="runtime-val c-heat" id="todayHeatVal">--</div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">Yesterday</div>
+      <div class="runtime-grid">
+        <div class="runtime-card">
+          <div class="r-label">Cooling</div>
+          <div class="runtime-bar"><div class="fill cool" id="yestCoolBar" style="width:0"></div></div>
+          <div class="runtime-val c-cool" id="yestCoolVal">--</div>
+        </div>
+        <div class="runtime-card">
+          <div class="r-label">Heating</div>
+          <div class="runtime-bar"><div class="fill heat" id="yestHeatBar" style="width:0"></div></div>
+          <div class="runtime-val c-heat" id="yestHeatVal">--</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== SYSTEM ========== -->
+  <div class="panel" id="panelSystem">
+    <div class="card">
+      <div class="card-title">Device Info</div>
+      <table class="sys-table">
+        <tr><td>Name</td><td id="sysName">--</td></tr>
+        <tr><td>Model</td><td id="sysModel">--</td></tr>
+        <tr><td>Firmware</td><td id="sysFw">--</td></tr>
+        <tr><td>API Version</td><td id="sysApi">--</td></tr>
+        <tr><td>UUID</td><td id="sysUuid">--</td></tr>
+        <tr><td>WLAN Firmware</td><td id="sysWlan">--</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="status-bar" id="status"><span class="dot"></span>Connecting…</div>
+</div>
+
+<div class="toast" id="toast"></div>
+<script src="app.js"></script>
+</body>
+</html>
